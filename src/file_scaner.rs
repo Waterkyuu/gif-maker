@@ -7,7 +7,7 @@ use std::path::PathBuf;
 /// Input example when `dir` is `"frames"`:
 ///
 /// ```text
-/// frames/
+/// frames/·
 ///   001.png
 ///   002.jpg
 ///   readme.txt
@@ -28,6 +28,9 @@ pub fn scan_images(dir: &str) -> Result<Vec<PathBuf>> {
         let entry = entry?;
         let path = entry.path();
 
+
+        // The order of GIF animations depends on the file sorting, so it is best to name them as
+        // frame_001.png frame_002.png
         if let Some(ext) = path.extension() {
             let ext = ext.to_string_lossy().to_lowercase();
 
