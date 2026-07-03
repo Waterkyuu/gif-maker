@@ -5,5 +5,7 @@ edition = "2024"
 
 [dependencies]
 anyhow = "1.0.103"
+crossterm = "0.29.0"
 gif = "0.14.2"
 image = "0.25.10"
+ratatui = "0.30.2"
