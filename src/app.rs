@@ -13,7 +13,7 @@ impl App {
             input_dir: String::from("./frames"),
             output_file: String::from("./output.gif"),
             fps: 10,
-            message: String::from("Press enter ton generate GIF"),
+            messages: String::from("Press enter ton generate GIF"),
             should_quit: false,
         }
     }
