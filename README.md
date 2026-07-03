@@ -1,5 +1,7 @@
 # GIF Maker
 
+![GIF Maker app preview](assets/app.png)
+
 [中文文档](README.zh-CN.md)
 
 GIF Maker is a small Rust terminal app for turning a folder of image frames into an animated GIF.
