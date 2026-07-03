@@ -3,7 +3,7 @@ pub struct App {
     pub input_dir: String,
     pub output_file: String,
     pub fps: u16,
-    pub messages: String,
+    pub message: String,
     pub should_quit: bool,
 }
 
@@ -13,7 +13,7 @@ impl App {
             input_dir: String::from("./frames"),
             output_file: String::from("./output.gif"),
             fps: 10,
-            messages: String::from("Press enter ton generate GIF"),
+            message: String::from("Press enter ton generate GIF"),
             should_quit: false,
         }
     }
