@@ -111,7 +111,7 @@ mod tests {
     fn uses_example_frames_as_default_input_directory() {
         let app = App::new();
 
-        assert_eq!(app.input_dir, "example/frames");
+        assert_eq!(app.input_dir, "examples/frames");
         assert_eq!(app.shown_input_dir(), "example/frames");
     }
 
@@ -135,7 +135,7 @@ mod tests {
         replace_input_dir_draft(&mut app, "/tmp/other");
         app.cancel_input_dir_edit();
 
-        assert_eq!(app.input_dir, "example/frames");
+        assert_eq!(app.input_dir, "examples/frames");
         assert!(!app.is_editing_input_dir());
     }
 
