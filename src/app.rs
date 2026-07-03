@@ -112,7 +112,7 @@ mod tests {
         let app = App::new();
 
         assert_eq!(app.input_dir, "examples/frames");
-        assert_eq!(app.shown_input_dir(), "example/frames");
+        assert_eq!(app.shown_input_dir(), "examples/frames");
     }
 
     #[test]
