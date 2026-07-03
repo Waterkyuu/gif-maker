@@ -40,8 +40,8 @@ Use zero-padded file names so the sorted file order matches the intended animati
 Create the default input directory and add frames:
 
 ```sh
-mkdir -p example/frames
-cp /path/to/images/* example/frames/
+mkdir -p examples/frames
+cp /path/to/images/* examples/frames/
 ```
 
 Run the app:

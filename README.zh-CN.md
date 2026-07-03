@@ -26,7 +26,7 @@ GIF Maker 是一个用 Rust 编写的终端 GIF 生成工具。它通过 Ratatui
 - 一个按可排序文件名组织的图片帧目录，例如：
 
 ```text
-example/frames/
+examples/frames/
   frame_001.png
   frame_002.png
   frame_003.png
@@ -39,7 +39,7 @@ example/frames/
 创建默认输入目录并放入图片帧：
 
 ```sh
-mkdir -p example/frames
+mkdir -p examples/frames
 cp /path/to/images/* example/frames/
 ```
 
