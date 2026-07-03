@@ -8,21 +8,10 @@ use app::App;
 use crossterm::{
     event::{self, Event, KeyCode},
     execute,
-    terminal::{
-        disable_raw_mode,
-        enable_raw_mode,
-        EnterAlternateScreen,
-        LeaveAlternateScreen,
-    },
+    terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
-use ratatui::{
-    backend::CrosstermBackend,
-    Terminal,
-};
-use std::{
-    io,
-    time::Duration,
-};
+use ratatui::{Terminal, backend::CrosstermBackend};
+use std::{io, time::Duration};
 
 fn main() -> Result<()> {
     enable_raw_mode()?;
@@ -44,10 +33,7 @@ fn main() -> Result<()> {
     result
 }
 
-fn run_app(
-    terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
-    app: &mut App,
-) -> Result<()> {
+fn run_app(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>, app: &mut App) -> Result<()> {
     loop {
         terminal.draw(|frame| {
             tui::draw(frame, app);
@@ -69,19 +55,15 @@ fn run_app(
                     KeyCode::Down => {
                         app.decrease_fps();
                     }
-                    KeyCode::Enter => {
-                        match generate(app) {
-                            Ok(_) => {
-                                app.message = format!(
-                                    "GIF generated successfully: {}",
-                                    app.output_file
-                                );
-                            }
-                            Err(err) => {
-                                app.message = format!("Error: {err}");
-                            }
+                    KeyCode::Enter => match generate(app) {
+                        Ok(_) => {
+                            app.message =
+                                format!("GIF generated successfully: {}", app.output_file);
                         }
-                    }
+                        Err(err) => {
+                            app.message = format!("Error: {err}");
+                        }
+                    },
                     _ => {}
                 }
             }
@@ -94,11 +76,7 @@ fn run_app(
 fn generate(app: &App) -> Result<()> {
     let images = file_scanner::scan_images(&app.input_dir)?;
 
-    gif_encoder::create_gif(
-        images,
-        &app.output_file,
-        app.fps,
-    )?;
+    gif_encoder::create_gif(images, &app.output_file, app.fps)?;
 
     Ok(())
 }

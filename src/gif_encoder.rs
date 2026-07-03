@@ -1,14 +1,10 @@
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use gif::{Encoder, Frame, Repeat};
 use image::ImageReader;
 use std::fs::File;
 use std::path::PathBuf;
 
-pub fn create_gif(
-    image_paths: Vec<PathBuf>,
-    output_path: &str,
-    fps: u16,
-) -> Result<()> {
+pub fn create_gif(image_paths: Vec<PathBuf>, output_path: &str, fps: u16) -> Result<()> {
     if image_paths.is_empty() {
         return Err(anyhow!("No images found"));
     }
@@ -20,7 +16,6 @@ pub fn create_gif(
     let height = first_image.height() as u16;
 
     let output_file = File::create(output_path)?;
-
 
     // Create a GIF encoder
     // output_file: GIF The file that needs to be written
@@ -48,12 +43,7 @@ pub fn create_gif(
 
         let mut pixels = img.into_raw();
 
-        let mut frame = Frame::from_rgba_speed(
-            width,
-            height,
-            &mut pixels,
-            10,
-        );
+        let mut frame = Frame::from_rgba_speed(width, height, &mut pixels, 10);
 
         frame.delay = delay;
 

@@ -28,7 +28,6 @@ pub fn scan_images(dir: &str) -> Result<Vec<PathBuf>> {
         let entry = entry?;
         let path = entry.path();
 
-
         // The order of GIF animations depends on the file sorting, so it is best to name them as
         // frame_001.png frame_002.png
         if let Some(ext) = path.extension() {
