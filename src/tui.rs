@@ -2,22 +2,35 @@ use crate::app::App;
 use ratatui::{
     Frame,
     layout::{Constraint, Direction, Layout},
+    style::{Color, Modifier, Style},
     text::{Line, Span},
     widgets::{Block, Borders, Paragraph},
 };
+
+const GIF_MAKER_LOGO: &str = r#" ██████╗ ██╗███████╗    ███╗   ███╗ █████╗ ██╗  ██╗███████╗██████╗ 
+██╔════╝ ██║██╔════╝    ████╗ ████║██╔══██╗██║ ██╔╝██╔════╝██╔══██╗
+██║  ███╗██║█████╗      ██╔████╔██║███████║█████╔╝ █████╗  ██████╔╝
+██║   ██║██║██╔══╝      ██║╚██╔╝██║██╔══██║██╔═██╗ ██╔══╝  ██╔══██╗
+╚██████╔╝██║██║         ██║ ╚═╝ ██║██║  ██║██║  ██╗███████╗██║  ██║
+ ╚═════╝ ╚═╝╚═╝         ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝"#;
 
 pub fn draw(frame: &mut Frame, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([
-            Constraint::Length(3),
+            Constraint::Length(8),
             Constraint::Length(7),
             Constraint::Min(3),
         ])
         .split(frame.area());
 
-    let title = Paragraph::new("Rust GIF Maker TUI")
-        .block(Block::default().borders(Borders::ALL).title("Title"));
+    let title = Paragraph::new(GIF_MAKER_LOGO)
+        .style(
+            Style::default()
+                .fg(Color::Cyan)
+                .add_modifier(Modifier::BOLD),
+        )
+        .block(Block::default().borders(Borders::ALL).title("GIF Maker"));
 
     frame.render_widget(title, chunks[0]);
 
@@ -45,4 +58,37 @@ pub fn draw(frame: &mut Frame, app: &App) {
         .block(Block::default().borders(Borders::ALL).title("Message"));
 
     frame.render_widget(message, chunks[2]);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ratatui::{Terminal, backend::TestBackend};
+
+    #[test]
+    fn draw_renders_gif_maker_logo_banner() {
+        let backend = TestBackend::new(90, 24);
+        let mut terminal = Terminal::new(backend).expect("terminal should initialize");
+        let app = App::new();
+
+        terminal
+            .draw(|frame| {
+                draw(frame, &app);
+            })
+            .expect("draw should succeed");
+
+        let buffer = terminal.backend().buffer();
+        let rendered = (0..buffer.area.height)
+            .map(|y| {
+                (0..buffer.area.width)
+                    .filter_map(|x| buffer.cell((x, y)).map(|cell| cell.symbol()))
+                    .collect::<String>()
+            })
+            .collect::<Vec<_>>()
+            .join("\n");
+
+        assert!(rendered.contains(" ██████╗ ██╗███████╗"));
+        assert!(rendered.contains("██╔════╝ ██║██╔════╝"));
+        assert!(rendered.contains("GIF Maker"));
+    }
 }
