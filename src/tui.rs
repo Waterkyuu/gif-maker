@@ -1,7 +1,7 @@
 use crate::app::App;
 use ratatui::{
     Frame,
-    layout::{Constraint, Direction, Layout},
+    layout::{Alignment, Constraint, Direction, Layout},
     style::{Color, Modifier, Style},
     text::{Line, Span},
     widgets::{Block, Borders, Paragraph},
@@ -25,12 +25,18 @@ pub fn draw(frame: &mut Frame, app: &App) {
         .split(frame.area());
 
     let title = Paragraph::new(GIF_MAKER_LOGO)
+        .alignment(Alignment::Center)
         .style(
             Style::default()
                 .fg(Color::Cyan)
                 .add_modifier(Modifier::BOLD),
         )
-        .block(Block::default().borders(Borders::ALL).title("GIF Maker"));
+        .block(
+            Block::default()
+                .borders(Borders::ALL)
+                .title("GIF Maker")
+                .title_alignment(Alignment::Center),
+        );
 
     frame.render_widget(title, chunks[0]);
 
@@ -90,5 +96,35 @@ mod tests {
         assert!(rendered.contains(" ██████╗ ██╗███████╗"));
         assert!(rendered.contains("██╔════╝ ██║██╔════╝"));
         assert!(rendered.contains("GIF Maker"));
+    }
+
+    #[test]
+    fn draw_centers_gif_maker_banner() {
+        let backend = TestBackend::new(90, 24);
+        let mut terminal = Terminal::new(backend).expect("terminal should initialize");
+        let app = App::new();
+
+        terminal
+            .draw(|frame| {
+                draw(frame, &app);
+            })
+            .expect("draw should succeed");
+
+        let buffer = terminal.backend().buffer();
+        let lines = (0..buffer.area.height)
+            .map(|y| {
+                (0..buffer.area.width)
+                    .filter_map(|x| buffer.cell((x, y)).map(|cell| cell.symbol()))
+                    .collect::<String>()
+            })
+            .collect::<Vec<_>>();
+
+        assert_eq!(char_position(&lines[0], "GIF Maker"), Some(40));
+        assert_eq!(char_position(&lines[1], " ██████╗ ██╗███████╗"), Some(12));
+    }
+
+    fn char_position(line: &str, needle: &str) -> Option<usize> {
+        line.find(needle)
+            .map(|byte_position| line[..byte_position].chars().count())
     }
 }
