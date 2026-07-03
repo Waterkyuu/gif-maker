@@ -64,3 +64,45 @@ If cloning is necessary, explain why the clone is reasonable.
 * Prefer using traits to express capabilities, not inheritance.
 * Keep trait bounds as close as possible to where they are used.
 * Consider readability when exposing generics in public APIs.
+
+## Documentation and Comments
+
+* Add a clear documentation comment for every public function.
+* Each function-level comment should explain:
+
+  1. What the function does.
+  2. When or why it should be used.
+  3. What the parameters mean, if they are not obvious.
+  4. What the function returns.
+  5. What errors may be returned, if the function returns `Result`.
+* For non-trivial functions, include a short usage example.
+* Prefer Rust doc comments `///` for public functions so they can be rendered by `cargo doc`.
+* Use regular comments `//` only for explaining complex implementation details.
+* Do not write noisy comments that merely repeat the code.
+* Comments should explain intent, constraints, and edge cases, not obvious syntax.
+
+Example:
+
+````rust
+/// Parses a comma-separated list of numbers into a vector of `i32`.
+///
+/// Use this when user input or file content contains numeric values
+/// separated by commas.
+///
+/// # Example
+///
+/// ```
+/// let numbers = parse_numbers("1, 2, 3").unwrap();
+/// assert_eq!(numbers, vec![1, 2, 3]);
+/// ```
+///
+/// # Errors
+///
+/// Returns an error if any item cannot be parsed as an `i32`.
+fn parse_numbers(input: &str) -> Result<Vec<i32>, std::num::ParseIntError> {
+    input
+        .split(',')
+        .map(|item| item.trim().parse::<i32>())
+        .collect()
+}
+````
