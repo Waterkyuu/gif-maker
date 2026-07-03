@@ -7,7 +7,8 @@ It uses a Ratatui interface for controls, scans local image files, and writes a 
 
 ## Features
 
-- Reads frames from `./frames`
+- Reads frames from `./frames` by default
+- Lets you choose a custom input folder from the terminal UI
 - Supports `png`, `jpg`, and `jpeg` input files
 - Sorts frame files by path before encoding
 - Resizes every frame to match the first image
@@ -47,10 +48,20 @@ Inside the TUI:
 
 | Key | Action |
 | --- | --- |
+| `i` | Edit the input folder |
 | `Up` | Increase FPS |
 | `Down` | Decrease FPS |
 | `Enter` | Generate the GIF |
 | `q` | Quit |
+
+While editing the input folder:
+
+| Key | Action |
+| --- | --- |
+| Text input | Type the folder path |
+| `Backspace` | Delete the previous character |
+| `Enter` | Save the input folder |
+| `Esc` | Cancel editing |
 
 The generated GIF is written to:
 
@@ -64,7 +75,7 @@ The app starts a Crossterm alternate-screen terminal, renders the interface with
 
 The GIF generation flow is:
 
-1. Scan `./frames` for supported image files.
+1. Scan the selected input folder for supported image files.
 2. Sort the frame paths.
 3. Decode the first image to determine GIF dimensions.
 4. Resize every frame to those dimensions.
