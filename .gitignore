@@ -1,1 +1,4 @@
 /target
+
+# Local Lefthook overrides for contributor machines.
+lefthook-local.*
