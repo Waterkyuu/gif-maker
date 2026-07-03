@@ -2,7 +2,9 @@
 
 ![GIF Maker app preview](assets/app.png)
 
-[中文文档](README.zh-CN.md)
+<p align="center">
+  <a href="README.zh-CN.md">中文文档</a>
+</p>
 
 GIF Maker is a small Rust terminal app for turning a folder of image frames into an animated GIF.
 It uses a Ratatui interface for controls, scans local image files, and writes a looping GIF.

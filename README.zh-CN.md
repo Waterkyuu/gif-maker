@@ -1,5 +1,7 @@
 # GIF Maker
 
+![GIF Maker 应用预览](assets/app.png)
+
 [English](README.md)
 
 GIF Maker 是一个用 Rust 编写的终端 GIF 生成工具。它通过 Ratatui 提供 TUI 界面，从本地图片帧目录读取文件，并生成循环播放的 GIF。
