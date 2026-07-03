@@ -9,7 +9,7 @@ pub struct App {
     pub should_quit: bool,
 }
 
-const DEFAULT_INPUT_DIR: &str = "example/frames";
+const DEFAULT_INPUT_DIR: &str = "examples/frames";
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum InputMode {
