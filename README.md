@@ -3,6 +3,8 @@
 ![GIF Maker app preview](assets/app.png)
 
 <p align="center">
+  <a href="README.md">English</a>
+  |
   <a href="README.zh-CN.md">中文文档</a>
 </p>
 
