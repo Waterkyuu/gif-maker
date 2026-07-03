@@ -7,7 +7,7 @@ It uses a Ratatui interface for controls, scans local image files, and writes a 
 
 ## Features
 
-- Reads frames from `./frames` by default
+- Reads frames from `example/frames` by default
 - Lets you choose a custom input folder from the terminal UI
 - Supports `png`, `jpg`, and `jpeg` input files
 - Sorts frame files by path before encoding
@@ -21,7 +21,7 @@ It uses a Ratatui interface for controls, scans local image files, and writes a 
 - A folder of image frames named in sortable order, for example:
 
 ```text
-frames/
+example/frames/
   frame_001.png
   frame_002.png
   frame_003.png
@@ -34,8 +34,8 @@ Use zero-padded file names so the sorted file order matches the intended animati
 Create the default input directory and add frames:
 
 ```sh
-mkdir -p frames
-cp /path/to/images/* frames/
+mkdir -p example/frames
+cp /path/to/images/* example/frames/
 ```
 
 Run the app:

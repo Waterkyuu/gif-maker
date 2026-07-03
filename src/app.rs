@@ -9,6 +9,8 @@ pub struct App {
     pub should_quit: bool,
 }
 
+const DEFAULT_INPUT_DIR: &str = "example/frames";
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum InputMode {
     Normal,
@@ -18,8 +20,8 @@ enum InputMode {
 impl App {
     pub fn new() -> Self {
         Self {
-            input_dir: String::from("./frames"),
-            input_dir_draft: String::from("./frames"),
+            input_dir: DEFAULT_INPUT_DIR.to_owned(),
+            input_dir_draft: DEFAULT_INPUT_DIR.to_owned(),
             output_file: String::from("./output.gif"),
             fps: 10,
             message: String::from("Press Enter to generate GIF"),
@@ -106,6 +108,14 @@ mod tests {
     use super::*;
 
     #[test]
+    fn uses_example_frames_as_default_input_directory() {
+        let app = App::new();
+
+        assert_eq!(app.input_dir, "example/frames");
+        assert_eq!(app.shown_input_dir(), "example/frames");
+    }
+
+    #[test]
     fn confirms_edited_input_directory() {
         let mut app = App::new();
 
@@ -125,7 +135,7 @@ mod tests {
         replace_input_dir_draft(&mut app, "/tmp/other");
         app.cancel_input_dir_edit();
 
-        assert_eq!(app.input_dir, "./frames");
+        assert_eq!(app.input_dir, "example/frames");
         assert!(!app.is_editing_input_dir());
     }
 
